@@ -3,8 +3,7 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/app.js',
-  '/manifest.json',
-  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
+  '/manifest.json'
 ];
 
 // Install Service Worker
