@@ -58,8 +58,20 @@ function initCanvas() {
 }
 
 function resizeCanvas() {
+    const oldWidth = canvas.width;
+    const oldHeight = canvas.height;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    
+    // Reposition particles proportionally if canvas was resized
+    if (oldWidth > 0 && oldHeight > 0) {
+        const scaleX = canvas.width / oldWidth;
+        const scaleY = canvas.height / oldHeight;
+        particles.forEach(particle => {
+            particle.x *= scaleX;
+            particle.y *= scaleY;
+        });
+    }
 }
 
 function animate() {
@@ -96,9 +108,8 @@ function startGame() {
     timer.textContent = '0ms';
     readyIndicator.classList.add('hidden');
     
-    // Show target and set to red
+    // Show target and set to red (default styling)
     targetElement.classList.remove('hidden', 'green', 'cyan');
-    targetElement.classList.add('red');
     
     // Random delay before turning green (2-5 seconds)
     const delay = 2000 + Math.random() * 3000;
@@ -108,8 +119,8 @@ function startGame() {
             currentState = GameState.READY;
             instruction.classList.add('hidden');
             readyIndicator.classList.remove('hidden');
-            targetElement.classList.remove('red');
-            targetElement.classList.add('green');
+            targetElement.classList.remove('green');
+            targetElement.classList.add('cyan');
             startTime = Date.now();
             
             // Start timer update
