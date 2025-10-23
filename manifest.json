@@ -1,0 +1,39 @@
+{
+  "name": "Reaction Driver",
+  "short_name": "ReactionDriver",
+  "description": "Futuristic reaction time game with 3D graphics powered by Three.js",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#00ffff",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2klEQVRYhe2XQQ6DMAxE3yH3v0PvwB0qVapUqfwOsGDBAmVhJ07SqEKqxEqRYBE/8WxnbGcYhmEYhmF8CVjABbgCd+ARvp/A/QNcwmdbgBV4As8R4KkAN2BtgG0FnI/9VoCbAtjVAW4K4FQHuCiAWx3AVgBvdYCtAN6zAJwaoGEzQMMmgIbNe9YAY8AG7Bo+D8TXH8RXhM8TsK/97wiwA+f/BMhqAPIT0JCaB6Tk3NWUmrOeUnNGVGqOmkrNkVWpn8qp+dkgNT8dpOZItNQci5aaw9FSc0Te/N8wDMMwvuQF52RCHQWQdkgAAAAASUVORK5CYII=",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2klEQVRYhe2XQQ6DMAxE3yH3v0PvwB0qVapUqfwOsGDBAmVhJ07SqEKqxEqRYBE/8WxnbGcYhmEYhmF8CVjABbgCd+ARvp/A/QNcwmdbgBV4As8R4KkAN2BtgG0FnI/9VoCbAtjVAW4K4FQHuCiAWx3AVgBvdYCtAN6zAJwaoGEzQMMmgIbNe9YAY8AG7Bo+D8TXH8RXhM8TsK/97wiwA+f/BMhqAPIT0JCaB6Tk3NWUmrOeUnNGVGqOmkrNkVWpn8qp+dkgNT8dpOZItNQci5aaw9FSc0Te/N8wDMMwvuQF52RCHQWQdkgAAAAASUVORK5CYII=",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2klEQVRYhe2XQQ6DMAxE3yH3v0PvwB0qVapUqfwOsGDBAmVhJ07SqEKqxEqRYBE/8WxnbGcYhmEYhmF8CVjABbgCd+ARvp/A/QNcwmdbgBV4As8R4KkAN2BtgG0FnI/9VoCbAtjVAW4K4FQHuCiAWx3AVgBvdYCtAN6zAJwaoGEzQMMmgIbNe9YAY8AG7Bo+D8TXH8RXhM8TsK/97wiwA+f/BMhqAPIT0JCaB6Tk3NWUmrOeUnNGVGqOmkrNkVWpn8qp+dkgNT8dpOZItNQci5aaw9FSc0Te/N8wDMMwvuQF52RCHQWQdkgAAAAASUVORK5CYII=",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "screenshots": [
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2klEQVRYhe2XQQ6DMAxE3yH3v0PvwB0qVapUqfwOsGDBAmVhJ07SqEKqxEqRYBE/8WxnbGcYhmEYhmF8CVjABbgCd+ARvp/A/QNcwmdbgBV4As8R4KkAN2BtgG0FnI/9VoCbAtjVAW4K4FQHuCiAWx3AVgBvdYCtAN6zAJwaoGEzQMMmgIbNe9YAY8AG7Bo+D8TXH8RXhM8TsK/97wiwA+f/BMhqAPIT0JCaB6Tk3NWUmrOeUnNGVGqOmkrNkVWpn8qp+dkgNT8dpOZItNQci5aaw9FSc0Te/N8wDMMwvuQF52RCHQWQdkgAAAAASUVORK5CYII=",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
