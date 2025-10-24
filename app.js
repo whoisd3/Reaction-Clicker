@@ -200,7 +200,7 @@ function startGame() {
             readyIndicator.classList.remove('hidden');
             targetElement.classList.add('cyan');
             startTime = Date.now();
-            updateTimer();
+            updateTimer(); // Start timer updates
         }
     }, delay);
 }

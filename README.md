@@ -1,4 +1,4 @@
-# ⚡ Reaction Clicker
+# ⚡ Reaction Clicker ⚡
 
 A futuristic Progressive Web App (PWA) reaction time game with stunning visual effects and engaging click interactions.
 
