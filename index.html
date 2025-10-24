@@ -3,42 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0a1a">
-    <meta name="description" content="Futuristic reaction time game with 3D graphics">
-    <title>Reaction Driver - Test Your Reflexes</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2klEQVRYhe2XQQ6DMAxE3yH3v0PvwB0qVapUqfwOsGDBAmVhJ07SqEKqxEqRYBE/8WxnbGcYhmEYhmF8CVjABbgCd+ARvp/A/QNcwmdbgBV4As8R4KkAN2BtgG0FnI/9VoCbAtjVAW4K4FQHuCiAWx3AVgBvdYCtAN6zAJwaoGEzQMMmgIbNe9YAY8AG7Bo+D8TXH8RXhM8TsK/97wiwA+f/BMhqAPIT0JCaB6Tk3NWUmrOeUnNGVGqOmkrNkVWpn8qp+dkgNT8dpOZItNQci5aaw9FSc0Te/N8wDMMwvuQF52RCHQWQdkgAAAAASUVORK5CYII=">
+    <title>Reaction Clicker</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
             background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
-            color: #fff;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .container {
+            position: relative;
             width: 100%;
-            height: 100%;
-            z-index: 1;
+            height: 100vh;
         }
-
         #particles-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
         }
-
+        
+        /* Optimal UI positioning - keep center clear */
+        .ui-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .ui-element {
+            pointer-events: auto;
+        }
+        
+        /* Corner-based stats display */
+        .stats-corner {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            font-size: 0.9em;
+        }
+        
+        /* Timer in top-right corner */
+        .timer-corner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        /* Bottom instruction area */
+        .instruction-bottom {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: 1px solid #ffff00;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+            text-align: center;
+        }
+        
+        .ui {
+            position: relative;
+            z-index: 100;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .screen {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            max-width: 500px;
+            animation: screenGlow 2s ease-in-out infinite alternate;
+            pointer-events: auto;
+            position: relative;
+            z-index: 101;
+        }
+        
+        @keyframes screenGlow {
+            from { box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); }
+            to { box-shadow: 0 0 50px rgba(0, 255, 255, 0.8); }
+        }
+        h1 {
+            color: #00ffff;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
+            50% { text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 60px rgba(0, 255, 255, 0.6); }
+        }
+        
+        button {
+            background: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
+            border: none;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            pointer-events: auto;
+            position: relative;
+            z-index: 102;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
         #target {
             position: absolute;
             top: 50%;
@@ -48,11 +158,15 @@
             height: 200px;
             border-radius: 50%;
             border: 10px solid #ff0000;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8), inset 0 0 50px rgba(255, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            animation: rotate 4s linear infinite, pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8), inset 0 0 30px rgba(255, 0, 0, 0.3);
+            animation: rotate 4s linear infinite, targetPulse 2s ease-in-out infinite;
+            z-index: 50;
+            cursor: pointer;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-select: none;
         }
-
+        
         #target::before {
             content: '';
             position: absolute;
@@ -63,9 +177,9 @@
             height: 150px;
             border-radius: 50%;
             border: 6px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.4);
         }
-
+        
         #target::after {
             content: '';
             position: absolute;
@@ -76,277 +190,141 @@
             height: 100px;
             border-radius: 50%;
             border: 4px solid #ff0000;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), inset 0 0 15px rgba(255, 0, 0, 0.3);
         }
-
-        #target.green {
-            border-color: #00ff00;
-            box-shadow: 0 0 50px rgba(0, 255, 0, 0.8), inset 0 0 50px rgba(0, 255, 0, 0.5);
-        }
-
-        #target.green::before,
-        #target.green::after {
-            border-color: #00ff00;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.6), inset 0 0 30px rgba(0, 255, 0, 0.4);
-        }
-
+        
         #target.cyan {
             border-color: #00ffff;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.8), inset 0 0 50px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.8), inset 0 0 30px rgba(0, 255, 255, 0.3);
+            animation: rotate 4s linear infinite, targetPulse 2s ease-in-out infinite, readyGlow 1s ease-in-out infinite;
         }
-
-        #target.cyan::before,
+        
+        #target.cyan::before {
+            border-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+        
         #target.cyan::after {
             border-color: #00ffff;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), inset 0 0 30px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), inset 0 0 15px rgba(0, 255, 255, 0.3);
         }
-
+        
         @keyframes rotate {
             from { transform: translate(-50%, -50%) rotate(0deg); }
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
-
-        @keyframes pulse {
+        
+        @keyframes targetPulse {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
+            50% { transform: translate(-50%, -50%) scale(1.02); }
         }
-
+        
+        @keyframes readyGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+        
         @keyframes shake {
             0%, 100% { transform: translate(-50%, -50%) translateX(0); }
             25% { transform: translate(-50%, -50%) translateX(-10px); }
             75% { transform: translate(-50%, -50%) translateX(10px); }
         }
-
-        #target.shake {
-            animation: shake 0.5s ease-in-out;
-        }
-
-        #ui-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .ui-element {
-            pointer-events: auto;
-        }
-
-        #menu-screen, #game-screen, #results-screen {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            padding: 40px;
-            border-radius: 20px;
-            background: rgba(10, 10, 26, 0.95);
-            border: 2px solid #00ffff;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-            max-width: 500px;
-            width: 90%;
-        }
-
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
-            to { text-shadow: 0 0 40px rgba(0, 255, 255, 1); }
-        }
-
-        h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #00ffff;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        button {
-            background: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
-            border: none;
-            color: #0a0a1a;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-        }
-
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        #instruction {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            color: #ffff00;
-            text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
-        }
-
-        #timer {
-            font-size: 4em;
-            color: #00ff00;
-            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-            margin: 20px 0;
-        }
-
-        .stats {
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(0, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-            font-size: 1.1em;
-        }
-
-        .stat-label {
-            color: #00ffff;
-        }
-
-        .stat-value {
-            color: #ffff00;
-            font-weight: bold;
-        }
-
+        
         .hidden {
             display: none;
         }
-
-        #install-prompt {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 255, 255, 0.9);
-            color: #0a0a1a;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            transition: all 0.3s;
-            z-index: 100;
-        }
-
-        #install-prompt:hover {
-            transform: scale(1.05);
-        }
-
-        .click-zone {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            cursor: pointer;
-        }
-
-        #ready-indicator {
-            font-size: 2em;
+        #timer {
+            font-size: 2.5em;
             color: #00ff00;
-            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            margin: 5px 0;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+        }
+        .stats {
             margin: 20px 0;
-            animation: blink 1s ease-in-out infinite;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
         }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
+        
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            h2 { font-size: 1.5em; }
-            p { font-size: 1em; }
-            button { font-size: 1em; padding: 12px 30px; }
-            #target { width: 150px; height: 150px; }
-            #target::before { width: 110px; height: 110px; }
-            #target::after { width: 70px; height: 70px; }
+            .stats-corner, .timer-corner, .instruction-bottom {
+                font-size: 0.8em;
+                padding: 10px;
+            }
+            #target {
+                width: 150px;
+                height: 150px;
+            }
+            #target::before {
+                width: 110px;
+                height: 110px;
+            }
+            #target::after {
+                width: 70px;
+                height: 70px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="canvas-container">
+    <div class="container">
         <canvas id="particles-canvas"></canvas>
         <div id="target" class="hidden"></div>
+        
+        <!-- Optimal UI Layout - Keep center clear -->
+        <div class="ui-overlay">
+            <!-- Corner-based stats (only show during gameplay) -->
+            <div id="stats-display" class="stats-corner ui-element hidden">
+                <div>⚡ Best: <span id="best-time-corner">-</span></div>
+                <div>🎮 Games: <span id="games-played-corner">0</span></div>
+                <div>⭐ Level: <span id="current-level">1</span></div>
+            </div>
+            
+            <!-- Timer in top-right -->
+            <div id="timer-display" class="timer-corner ui-element hidden">
+                <div id="timer">0ms</div>
+            </div>
+            
+            <!-- Bottom instruction area -->
+            <div id="instruction-display" class="instruction-bottom ui-element hidden">
+                <div id="instruction">Wait for CYAN...</div>
+                <div id="ready-indicator" class="hidden">🎯 CLICK NOW! 🎯</div>
+            </div>
+        </div>
+        
+        <!-- Main UI screens (centered) -->
+        <div class="ui">
+            <div id="menu-screen" class="screen ui-element">
+                <h1>⚡ REACTION DRIVER ⚡</h1>
+                <p>Test your reflexes! Click when the target turns cyan.</p>
+                <p>💥 Every click creates spectacular particle effects!</p>
+                <button id="start-btn">START GAME</button>
+                <div class="stats">
+                    <div>⚡ Best Time: <span id="best-time">-</span></div>
+                    <div>🎮 Games Played: <span id="games-played">0</span></div>
+                </div>
+            </div>
+            
+            <div id="game-screen" class="screen ui-element hidden">
+                <!-- This screen will be minimal - just a click target area -->
+                <div style="font-size: 1.5em; margin-bottom: 20px;">Focus on the center target!</div>
+                <div style="font-size: 1em; opacity: 0.7;">Click when it turns cyan for particle explosions!</div>
+            </div>
+            
+            <div id="results-screen" class="screen ui-element hidden">
+                <h2>🏆 Results 🏆</h2>
+                <div class="stats">
+                    <div>⚡ Your Time: <span id="result-time">0ms</span></div>
+                    <div>🌟 Rating: <span id="rating">-</span></div>
+                    <div>💥 Click Effects: SPECTACULAR!</div>
+                </div>
+                <button id="play-again-btn">PLAY AGAIN</button>
+                <button id="menu-btn">MAIN MENU</button>
+            </div>
+        </div>
     </div>
     
-    <div id="ui-overlay">
-        <!-- Menu Screen -->
-        <div id="menu-screen" class="ui-element">
-            <h1>⚡ REACTION DRIVER ⚡</h1>
-            <p>Test your reflexes in this futuristic 3D reaction game!</p>
-            <p>Click the targets as fast as you can when they turn green.</p>
-            <button id="start-btn">START GAME</button>
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="stat-label">Best Time:</span>
-                    <span class="stat-value" id="best-time">-</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Games Played:</span>
-                    <span class="stat-value" id="games-played">0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Game Screen -->
-        <div id="game-screen" class="ui-element hidden">
-            <div id="instruction">Wait for GREEN...</div>
-            <div id="timer">0ms</div>
-            <div id="ready-indicator" class="hidden">🎯 CLICK NOW! 🎯</div>
-            <div class="click-zone" id="click-zone"></div>
-        </div>
-
-        <!-- Results Screen -->
-        <div id="results-screen" class="ui-element hidden">
-            <h2>🏆 Results 🏆</h2>
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="stat-label">Your Time:</span>
-                    <span class="stat-value" id="result-time">0ms</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Rating:</span>
-                    <span class="stat-value" id="rating">-</span>
-                </div>
-            </div>
-            <button id="play-again-btn">PLAY AGAIN</button>
-            <button id="menu-btn">MAIN MENU</button>
-        </div>
-
-        <!-- Install Prompt -->
-        <div id="install-prompt" class="ui-element hidden">
-            📱 Install App
-        </div>
-    </div>
-
     <script src="app.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
-  "name": "Reaction Driver",
+  "name": "Reaction Driver - Cyberpunk Racing",
   "short_name": "ReactionDriver",
-  "description": "Futuristic reaction time game with 3D graphics powered by Three.js",
+  "description": "Futuristic endless runner racing game through cyberpunk highways with 3D graphics",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a1a",
